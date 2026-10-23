@@ -84,12 +84,6 @@ for geometry_folder in sorted(base_folder.iterdir()):
     if len(logfiles) == 0:
         continue
 
-
-    #print("\n" + "=" * 60)
-    #print(f"Processing geometry: {geometry}")
-    #print("=" * 60)
-
-
     Jz_all = []
     energy_all = []
 
@@ -107,14 +101,11 @@ for geometry_folder in sorted(base_folder.iterdir()):
             print(f"Could not extract Jz from: {logfile.name}")
             continue
 
-
         E = get_last_energy(logfile)
-
 
         if E is None:
             print(f"No energy found in: {logfile.name}")
             continue
-
 
         Jz_all.append(Jz)
         energy_all.append(E)
@@ -123,11 +114,6 @@ for geometry_folder in sorted(base_folder.iterdir()):
     # Convert to numpy arrays
     Jz_all = np.array(Jz_all)
     energy_all = np.array(energy_all)
-
-
-    # --------------------------------------------------------
-    # Sort everything according to Jz
-    # --------------------------------------------------------
 
     order = np.argsort(Jz_all)
 
@@ -138,19 +124,12 @@ for geometry_folder in sorted(base_folder.iterdir()):
     # --------------------------------------------------------
     # Find reference energy at Jz = -0.5
     # --------------------------------------------------------
-
     ref_mask = np.isclose(Jz_all, -0.5)
-
 
     if not np.any(ref_mask):
 
-        print(
-            f"WARNING: No Jz = -0.5 reference found "
-            f"for {geometry}. Skipping."
-        )
-
+        print(f"WARNING: No Jz = -0.5 reference found for {geometry}. Skipping.")
         continue
-
 
     reference = energy_all[ref_mask][0]
 
@@ -183,7 +162,7 @@ for geometry_folder in sorted(base_folder.iterdir()):
 
     fit_mask = (
         (Jz_values > -0.5) &
-        (Jz_values <= -0.47)
+        (Jz_values <= -0.45)
     )
 
 
@@ -285,90 +264,23 @@ for geometry, data in results.items():
     a = data["a"]
     b = data["b"]
 
+    ax.scatter(xdata, ydata, s=60, label=f"{geometry} DMRG")
+    
+    xfit = np.linspace(np.min(xdata), np.max(xdata), 500)
 
-    # --------------------------------------------------------
-    # Plot ALL actual data points
-    #
-    # This includes -0.42, -0.40, etc.
-    # even though those points were NOT fitted.
-    # --------------------------------------------------------
-
-    ax.scatter(
-        xdata,
-        ydata,
-        s=60,
-        label=f"{geometry} DMRG"
-    )
+    ax.plot(xfit, f(xfit, a, b), "--", linewidth=2, label=rf"{geometry} fit: $exponent={b:.3f}$")
     
 
-    # --------------------------------------------------------
-    # Plot fitted function across the ENTIRE available range
-    #
-    # So even though fitting only used data up to Jz=-0.45,
-    # the fit curve is extrapolated to -0.42, -0.40, etc.
-    # --------------------------------------------------------
+ax.set_xlabel(r"$\delta J_z = J_z + 0.5$", fontsize=16)
 
-    xfit = np.linspace(
-        np.min(xdata),
-        np.max(xdata),
-        500
-    )
+ax.set_ylabel(r"$E(J_z)-E(J_z=-0.5)$", fontsize=16)
 
+ax.tick_params(axis="both", labelsize=10)
 
-    ax.plot(
-        xfit,
-        f(xfit, a, b),
-        "--",
-        linewidth=2,
-        label=rf"{geometry} fit: $exponent={b:.3f}$"
-    )
+ax.legend(fontsize=10)
 
-
-# ============================================================
-# Plot formatting
-# ============================================================
-
-ax.set_xlabel(
-    r"$\delta J_z = J_z + 0.5$",
-    fontsize=16
-)
-
-ax.set_ylabel(
-    r"$E(J_z)-E(J_z=-0.5)$",
-    fontsize=16
-)
-
-ax.tick_params(
-    axis="both",
-    labelsize=10
-)
-
-ax.legend(
-    fontsize=10
-)
-
-ax.grid(
-    alpha=0.3
-)
+ax.grid(alpha=0.3)
 
 pl.tight_layout()
 
 pl.show()
-
-
-# ============================================================
-# Print final summary of exponents
-# ============================================================
-
-print("\n")
-print("=" * 60)
-print("FIT SUMMARY")
-print("=" * 60)
-
-for geometry, data in results.items():
-
-    print(
-        f"{geometry:10s} "
-        f"a = {data['a']:.8f}   "
-        f"b = {data['b']:.8f}"
-    )
