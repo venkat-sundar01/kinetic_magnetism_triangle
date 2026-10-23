@@ -14,19 +14,15 @@ from pathlib import Path
 
 base_folder = Path("/Users/venkat/Desktop/polaron_figure/E_Jz/")
 
-
 # ============================================================
-# Fit function
-#
-# delta_E = a * (delta_Jz)^b
+# Fit: The energy is fit as follows (E-E_0) = a * (\delta_Jz)^b
 # ============================================================
 
 def f(x, a, b):
     return a * x**b
 
-
 # ============================================================
-# Read final energy from one log file
+# Getting final energy from one log file
 # ============================================================
 
 def get_last_energy(filepath):
@@ -50,26 +46,14 @@ def get_last_energy(filepath):
 
 
 # ============================================================
-# Extract Jz from filename
-#
-# Example:
-#
-# out_12x8_1hole_Nup16_Jzm0p49.log
-#
-# gives
-#
-# Jz = -0.49
+# Extract Jz from filename. For ex: "out_12x8_1hole_Nup16_Jzm0p49.log" gives Jz = -0.49
 # ============================================================
 
 def get_Jz(filename):
 
     Jz_text = filename.split("_Jz")[1].removesuffix(".log")
 
-    Jz_text = (
-        Jz_text
-        .replace("m", "-")
-        .replace("p", ".")
-    )
+    Jz_text = (Jz_text.replace("m", "-").replace("p", "."))
 
     return float(Jz_text)
 
