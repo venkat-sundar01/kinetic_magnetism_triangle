@@ -12,7 +12,7 @@ from pathlib import Path
 # etc.
 # ============================================================
 
-base_folder = Path("/Users/venkat/Desktop/polaron_figure/E_Jz/")
+base_folder = Path(__file__).resolve().parent / "data"
 
 # ============================================================
 # Fit: The energy is fit as follows (E-E_0) = a * (\delta_Jz)^b
