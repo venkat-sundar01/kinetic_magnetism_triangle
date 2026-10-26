@@ -17,7 +17,7 @@ from scipy.optimize import curve_fit
 
 HERE = Path(__file__).resolve().parent
 BASE_FOLDER = HERE / "data"  # Or set this to your existing r_Jz folder.
-OUTPUT_FOLDER = HERE / "results"
+OUTPUT_FOLDER = HERE / "results_direct"
 
 # The names match the geometry folders in the E-versus-Jz notebook.
 # The last entry says whether the short direction is periodic.
