@@ -1,0 +1,7 @@
+geometry,Jz,delta_Jz,radius,shell_estimate,radius_source,refSite_Julia,side_used,used_in_fit,filename
+9x9,-0.485,0.015000000000000013,3.8981179462623117,3.8981179462623117,shell estimate,41,all,True,data_correlations_nh1_Nup12_Ndn68_obc_Nx9_Ny9_t1.0_Jz-0.485.h5
+9x9,-0.48,0.020000000000000018,3.4571726988404943,3.4571726988404943,shell estimate,41,all,True,data_correlations_nh1_Nup16_Ndn64_obc_Nx9_Ny9_t1.0_Jz-0.48.h5
+9x9,-0.475,0.025000000000000022,3.0550911570869648,3.0550911570869648,shell estimate,41,all,True,data_correlations_nh1_Nup19_Ndn61_obc_Nx9_Ny9_t1.0_Jz-0.475.h5
+9x9,-0.47,0.030000000000000027,2.661100106878402,2.661100106878402,shell estimate,50,left,True,data_correlations_nh1_Nup22_Ndn58_obc_Nx9_Ny9_t1.0_Jz-0.47.h5
+9x9,-0.46,0.03999999999999998,2.255764243268767,2.255764243268767,shell estimate,23,right,True,data_correlations_nh1_Nup26_Ndn54_obc_Nx9_Ny9_t1.0_Jz-0.46.h5
+9x9,-0.45,0.04999999999999999,2.236152605235954,2.236152605235954,shell estimate,59,left,True,data_correlations_nh1_Nup28_Ndn52_obc_Nx9_Ny9_t1.0_Jz-0.45.h5
